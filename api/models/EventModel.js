@@ -46,7 +46,7 @@ description:{
 
 
 
-create_data:{
+create_date:{
     type:Date,
     default:Date.now
 }

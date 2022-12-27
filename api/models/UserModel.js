@@ -4,7 +4,7 @@ require("dotenv").config();
 const jwt = require('jsonwebtoken');
 const UserRole = require("../enums/UserRole");
 
-const SOLT = 10;
+const SALT = 10;
 
 
 var schema = mongoose.Schema;
@@ -50,7 +50,7 @@ Phone_number:{
     type:String,
     required:false
 },
-create_data:{
+create_date:{
     type:Date,
     default:Date.now
 }
@@ -76,6 +76,16 @@ UserSchema.pre('save',function(next){
         next();
     }
 });
+
+//For comparing the users entered password with database login
+UserSchema.methods.comparePassword = function (candidatePassword,callBack){
+    bcrypt.compare(candidatePassword,this.password,function(err,isMatch){
+        if(err) return callback(err);
+        callBack(null,isMatch);
+    });
+
+    };
+
 
 //For generating token when loggedin
 UserSchema.methods.generateToken = function(callBack){

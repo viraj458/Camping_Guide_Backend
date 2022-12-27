@@ -10,7 +10,7 @@ var CampSiteOwnerModelSchema = new Schema({
     
 },
 
-create_data:{
+create_date:{
     type:Date,
     default:Date.now
 }
