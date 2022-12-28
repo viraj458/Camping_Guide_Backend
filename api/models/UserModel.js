@@ -62,7 +62,7 @@ create_date:{
 UserSchema.pre('save',function(next){
     var user = this;
     if(user.isModified('password')){
-        //checking if personal field is available and modified
+        //checking if password field is available and modified
         bcrypt.genSalt(SALT,function(err,salt){
             if(err) return next(err)
 
@@ -77,10 +77,10 @@ UserSchema.pre('save',function(next){
     }
 });
 
-//For comparing the users entered password with database login
+//For comparing the users entered password with database during login
 UserSchema.methods.comparePassword = function (candidatePassword,callBack){
     bcrypt.compare(candidatePassword,this.password,function(err,isMatch){
-        if(err) return callback(err);
+        if(err) return callBack(err);
         callBack(null,isMatch);
     });
 
@@ -91,15 +91,15 @@ UserSchema.methods.comparePassword = function (candidatePassword,callBack){
 UserSchema.methods.generateToken = function(callBack){
     var user =this;
     var token = jwt.sign(user_id.toHexString(),process.env.SECRETE);
-
+    
     callBack(null,token);
 };
 
 //validating token for auth routes middleware
 UserSchema.statics.findByToken = function(token,callBack){
-    jwt.verity(token,process.env.SECRETE,function(err,decode){
+    jwt.verify(token, process.env.SECRETE,function(err,decode){
         //this decode must give user_id if token is valid .ie decode = user_id
-        user.findById(decode,function(err,user){
+        User.findById(decode,function(err,user){
             if(err){
                 res.json({status:false, data:"invalid User ID"});
             }
