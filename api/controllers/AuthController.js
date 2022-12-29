@@ -39,10 +39,33 @@ exports.loginUser = (req,res) => {
                 });
             }
 
-            return res.status(200).json({
-                sucess:true,
-                meassage:"succcessfully Logged in!"
+            user.generateToken((err,token)=>{
+                if (err){
+                    return res.status(400).json({
+                        sucess:false,
+                        message:"unable to generate jwt key",
+                        data:err
+                    });
+                }
+
+                return res.status(200).json({
+                    sucess:true,
+                    meassage:"succcessfully Logged in!",
+                    data:{
+                        "token":token
+                    }
+                  });
             });
         });
     });
 } 
+
+exports.getUserDetails = (req,res) => {
+    return res.status(200).json({
+        sucess:true,
+        meassage:"User Received!",
+        data:req.user
+        
+    });
+}     
+

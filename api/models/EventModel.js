@@ -1,8 +1,12 @@
 var mongoose = require("mongoose");
+var bcrypt = require('bcrypt');
+require("dotenv").config();
+const jwt = require('jsonwebtoken');
+const UserRole = require("../enums/UserRole");
 
 var schema = mongoose.Schema;
 
-var EventModelSchema = new Schema({
+var EventModelSchema = new schema({
     event_id:{
     type:mongoose.Schema.Types.ObjectId,
     ref:'User',
@@ -25,7 +29,7 @@ starting_date:{
     required:[true,'starting date field is required']
 },
 starting_time:{
-    type:Time,
+    type:String,
     required:[true,'starting time field is required']
 },
 
@@ -34,7 +38,7 @@ ending_date:{
     required:[true,'ending date field is required']
 },
 Ending_time:{
-    type:Time,
+    type:String,
     required:[true,'ending time field is required']
 },
 description:{
@@ -42,8 +46,21 @@ description:{
     required:[true,'Description field is required']
 
 },
+role:{
+    type:String,
+    enum:UserRole,
+    default:UserRole.CAMPER
+},
+profile_image:{
+    type:String,
+    required:false
+    
+},
+Phone_number:{
+    type:String,
+    required:false
 
-
+},
 
 
 create_date:{
@@ -51,6 +68,24 @@ create_date:{
     default:Date.now
 }
 
+});
+
+EventSchema.pre('save',function(next){
+    var user = this;
+    if(user.isModified('password')){
+        //checking if password field is available and modified
+        bcrypt.genSalt(SALT,function(err,salt){
+            if(err) return next(err)
+
+            bcrypt.hash(user.password,salt,function(err,hash){
+                if (err) return next(err)
+                user.password = hash;
+                next();
+            });
+        });
+    }else{
+        next();
+    }
 });
 
 const Event =mongoose.model('Event',EventModelSchema);

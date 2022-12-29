@@ -90,7 +90,7 @@ UserSchema.methods.comparePassword = function (candidatePassword,callBack){
 //For generating token when loggedin
 UserSchema.methods.generateToken = function(callBack){
     var user =this;
-    var token = jwt.sign(user_id.toHexString(),process.env.SECRETE);
+    var token = jwt.sign(user._id.toHexString(),process.env.SECRETE);
     
     callBack(null,token);
 };
@@ -101,7 +101,13 @@ UserSchema.statics.findByToken = function(token,callBack){
         //this decode must give user_id if token is valid .ie decode = user_id
         User.findById(decode,function(err,user){
             if(err){
-                res.json({status:false, data:"invalid User ID"});
+                
+                return res.status(404).json({
+                    sucess:false,
+                    message:"Invalid User ID!",
+                    data:err
+                  
+                });
             }
 
             callBack(null,user);
