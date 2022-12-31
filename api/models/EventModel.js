@@ -10,7 +10,7 @@ var EventModelSchema = new schema({
     event_id:{
     type:mongoose.Schema.Types.ObjectId,
     ref:'User',
-    required:[true,'Event ID field is required!'],
+    required:[false,'Event ID field is required!'],
     
 },
 event_name:{
@@ -19,9 +19,8 @@ event_name:{
     
 },
 event_location:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'User',
-    required:[true,'User field is required!'],
+    type:String,
+    required:[true,'location field is required!'],
     
 },
 starting_date:{
@@ -30,16 +29,16 @@ starting_date:{
 },
 starting_time:{
     type:String,
-    required:[true,'starting time field is required']
+    required:false
 },
 
 ending_date:{
     type:Date,
     required:[true,'ending date field is required']
 },
-Ending_time:{
+ending_time:{
     type:String,
-    required:[true,'ending time field is required']
+    required:false
 },
 description:{
     type:String,
@@ -70,23 +69,10 @@ create_date:{
 
 });
 
-EventSchema.pre('save',function(next){
-    var user = this;
-    if(user.isModified('password')){
-        //checking if password field is available and modified
-        bcrypt.genSalt(SALT,function(err,salt){
-            if(err) return next(err)
-
-            bcrypt.hash(user.password,salt,function(err,hash){
-                if (err) return next(err)
-                user.password = hash;
-                next();
-            });
-        });
-    }else{
-        next();
-    }
+EventModelSchema.pre('save',function(next){
+    var eventcreate= this;
 });
+
 
 const Event =mongoose.model('Event',EventModelSchema);
 module.exports = {Event}

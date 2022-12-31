@@ -1,23 +1,21 @@
 const {Event} = require("../models/EventModel")
 
 exports.registerEvent = (req,res) => {
-    const user = new User(req.body);
+    const eventcreate = new Event(req.body);
 
-    user.save((err,doc) =>{
-        if(err){
-            return res.status(422).json({
-                sucess:false,
-                message:"Registration faild,check the validation errors",
-                data:err
-            
+    eventcreate.save().then(() => {
+        res.status(201).json({
+            message: 'Request sent!'
+          });
+        }
+        ).catch(
+          (error) => {
+            res.status(400).json({
+              error: error
             });
-        }else{
-            return res.status(200).json({
-            sucess:true,
-            message:"Successfully Registered"
-            
-            });
+          });
+           
             
         }
-    });
-} 
+
+ 
