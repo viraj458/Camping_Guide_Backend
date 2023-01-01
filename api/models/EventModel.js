@@ -7,12 +7,7 @@ const UserRole = require("../enums/UserRole");
 var schema = mongoose.Schema;
 
 var EventModelSchema = new schema({
-    event_id:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'User',
-    required:[false,'Event ID field is required!'],
     
-},
 event_name:{
     type:String,
     required:[true,'Event Name field is required!'],
@@ -69,9 +64,7 @@ create_date:{
 
 });
 
-EventModelSchema.pre('save',function(next){
-    var eventcreate= this;
-});
+
 
 
 const Event =mongoose.model('Event',EventModelSchema);
