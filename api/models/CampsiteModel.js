@@ -1,32 +1,28 @@
-var mongoose = require("mongoose");
-var bcrypt = require('bcrypt');
-require("dotenv").config();
-const jwt = require('jsonwebtoken');
-const UserROle = require("../enums/UserRole");
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-
-var schema = mongoose.Schema;
-
-var CampsiteModelShema = new Schema({
-    Campsite_id:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User',
-        required:[true,'User field is required!'],
-        
-    },
+const CampsiteSchema = new Schema({
+      campsite_name:{
+        type: String,
+        required: true
+      },
+      location_address:{
+        type: String,
+        required: true
+      },
+      descripton:{
+        type: String,
+        required: true
+      },
+      photos_of_location:{
+        type: [String],
+        required: false
+      },
+      photos_of_legal_docs:{
+        type: [String],
+        required: false
+      },
+    });
     
-Address:{
-    type:String,
-    required:[true,'Address field is required!'],
-    unique:true
-},
-
-create_date:{
-    type:Date,
-    default:Date.now
-}
-
-});
-
-const Campsite =mongoose.model('CampSite',CampSiteModelSchema);
-module.exports = {Campsite}
+    const Campsite =mongoose.model('Campsite',CampsiteSchema);
+    module.exports = {Campsite}
