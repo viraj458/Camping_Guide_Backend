@@ -9,6 +9,8 @@ router.get('/',function(req,res){
 
 require('./AuthRoutes')(router);
 require('./EventRoutes')(router);
+require('./CampsitesRoute')(router);
+
 
 
 
