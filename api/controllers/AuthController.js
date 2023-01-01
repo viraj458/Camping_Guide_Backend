@@ -60,12 +60,13 @@ exports.loginUser = (req,res) => {
     });
 } 
 
-exports.getUserDetails = (req,res) => {
-    return res.status(200).json({
-        sucess:true,
-        meassage:"User Received!",
-        data:req.user
-        
-    });
+exports.getUserDetails =async (_req, res) => {
+    try {
+        const users = await User.find();
+        return res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+
 }     
 
