@@ -1,13 +1,13 @@
 const {Campsite} = require('../models/CampsiteModel.js')
 
-exports.createCampsite = async (req,res,next)=>{
+exports.createCampsite = async (req,res)=>{
 
     const newCampsite = new Campsite(req.body)
     try {
         const savedCampsite = await newCampsite.save()
         return res.status(200).json(savedCampsite)
     } catch (err) {
-        next
+        res.status(500).json(error)
     }
 }
 
