@@ -1,7 +1,7 @@
 const {Event} = require("../models/EventModel")
 
 
-//create
+//CREATE
 exports.registerEvent = async (req,res) => {
     const eventcreate = new Event(req.body)
 
