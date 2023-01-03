@@ -1,6 +1,7 @@
 const {User} = require("../models/UserModel");
+const { Campsite } = require("../models/CampsiteModel")
 
-//Registration
+//User Registration
 exports.registerUser = (req,res) => {
     const user = new User(req.body);
 
@@ -23,7 +24,7 @@ exports.registerUser = (req,res) => {
     });
 } 
 
-//login
+//User login
 
 exports.loginUser = (req,res) => {
     User.findOne({email:req.body.email},(err,user) =>{
@@ -63,3 +64,67 @@ exports.loginUser = (req,res) => {
     });
 } 
 
+
+
+//Campsite Registration
+exports.registerCampsite = (req,res) => {
+    const campsite = new Campsite(req.body);
+
+    campsite.save((err,doc) =>{
+        if(err){
+            return res.status(422).json({
+                sucess:false,
+                message:"Registration faild,check the validation errors",
+                data:err
+            
+            });
+        }else{
+            return res.status(200).json({
+            sucess:true,
+            message:"Successfully Registered"
+            
+            });
+            
+        }
+    });
+} 
+
+//User login
+
+exports.loginCampsite = (req,res) => {
+    Campsite.findOne({business_license_number:req.body.business_license_number},(err,campsite) =>{
+        if(!campsite){
+            return res.status(404).json({
+                sucess:false,
+                message:"Campsite's business license number not found!"
+            });
+        }
+
+        campsite.comparePassword(req.body.password,(err,isMatch) =>{
+            if(!isMatch){
+                return res.status(400).json({
+                    sucess:false,
+                    message:"Password is incorrect!"
+                });
+            }
+
+            campsite.generateToken((err,token)=>{
+                if (err){
+                    return res.status(400).json({
+                        sucess:false,
+                        message:"unable to generate jwt key",
+                        data:err
+                    });
+                }
+
+                return res.status(200).json({
+                    sucess:true,
+                    meassage:"succcessfully Logged in!",
+                    data:{
+                        "token":token
+                    }
+                  });
+            });
+        });
+    });
+} 
