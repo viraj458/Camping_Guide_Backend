@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 
 
 
+
 mongoose.Promise = global.Promise;
 mongoose.set('strictQuery', false);
 
@@ -27,6 +28,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 var v1 = require('./api/routes');
+const { signedCookie } = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 
 app.use('/api/v1', v1.router);
 

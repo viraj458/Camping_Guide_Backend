@@ -1,5 +1,6 @@
 const {User} = require("../models/UserModel");
 
+//Registration
 exports.registerUser = (req,res) => {
     const user = new User(req.body);
 
@@ -21,6 +22,8 @@ exports.registerUser = (req,res) => {
         }
     });
 } 
+
+//login
 
 exports.loginUser = (req,res) => {
     User.findOne({email:req.body.email},(err,user) =>{
@@ -59,14 +62,4 @@ exports.loginUser = (req,res) => {
         });
     });
 } 
-
-exports.getUserDetails =async (_req, res) => {
-    try {
-        const users = await User.find();
-        return res.status(200).json(users);
-    } catch (error) {
-        res.status(500).json(error);
-    }
-
-}     
 

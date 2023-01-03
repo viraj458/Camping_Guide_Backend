@@ -10,26 +10,18 @@ const SALT = 10;
 var schema = mongoose.Schema;
 
 var UserSchema = new schema({
-    fname:{
+    name:{
     type:String,
     required:[true,'First Name field is required!'],
     maxlength:100
 },
-lname:{
-    type:String,
-    required:[true,'Last Name field is required!'],
-    maxlength:100
-},
+
 email:{
     type:String,
     required:[true,'Email field is required!'],
     unique:true
 },
-username:{
-    type:String,
-    required:[true,'username field is required!'],
-    unique:true
-},
+
 password:{
     type:String,
     minlength:5,
@@ -41,15 +33,7 @@ role:{
     enum:UserRole,
     default:UserRole.CAMPER
 },
-profile_image:{
-    type:String,
-    required:false
-    
-},
-Phone_number:{
-    type:String,
-    required:false
-},
+
 create_date:{
     type:Date,
     default:Date.now
@@ -82,7 +66,7 @@ UserSchema.methods.comparePassword = function (candidatePassword,callBack){
     bcrypt.compare(candidatePassword,this.password,function(err,isMatch){
         if(err) return callBack(err);
         callBack(null,isMatch);
-    });
+    }); 
 
     };
 

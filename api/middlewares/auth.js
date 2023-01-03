@@ -1,12 +1,12 @@
-const {User} =- require('../models/UserModel');
+//const {User} =- require('../models/UserModel');
 
-function Auth(req, res, next) {
-    let token = req.header("Authorization");
+//function Auth(req, res, next) {
+   // let token = req.header("Authorization");
 
-    if (!token) {
+    //if (!token) {
 
-        return res.status(400).json({
-            sucess: false,
+       // return res.status(400).json({
+          /*  sucess: false,
             message: "No valid token provided"
         });
     }
@@ -31,4 +31,4 @@ function Auth(req, res, next) {
 
 }
 
-module.exports = {Auth} ;
+module.exports = {Auth} ;*/
