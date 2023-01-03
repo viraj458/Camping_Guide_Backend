@@ -7,7 +7,7 @@ const express = require('express')
 // const { createCampsite, updateCampsite, deleteCampsite, getCampsite, getCampsites } = require('../controllers/CampsiteController.js')
 const CampsiteController= require('../controllers/CampsiteController.js')
 
-app.get("/checkauthentication2",verifyToken2,(_req,res)=>{
+app.get("/checkauthentication",verifyToken2,(_req,res)=>{
     res.send("Hello C,you are loggedin ")
 });
 
