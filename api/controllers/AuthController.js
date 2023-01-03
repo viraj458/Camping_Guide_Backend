@@ -15,7 +15,7 @@ exports.registerUser = (req,res) => {
             });
         }else{
             return res.status(200).json({
-            sucess:true,
+            success:true,
             message:"Successfully Registered"
             
             });
@@ -30,7 +30,7 @@ exports.loginUser = (req,res) => {
     User.findOne({email:req.body.email},(err,user) =>{
         if(!user){
             return res.status(404).json({
-                sucess:false,
+                success:false,
                 message:"User email not found!"
             });
         }
@@ -38,7 +38,7 @@ exports.loginUser = (req,res) => {
         user.comparePassword(req.body.password,(err,isMatch) =>{
             if(!isMatch){
                 return res.status(400).json({
-                    sucess:false,
+                    success:false,
                     message:"Password is incorrect!"
                 });
             }
@@ -46,14 +46,14 @@ exports.loginUser = (req,res) => {
             user.generateToken((err,token)=>{
                 if (err){
                     return res.status(400).json({
-                        sucess:false,
+                        success:false,
                         message:"unable to generate jwt key",
                         data:err
                     });
                 }
 
                 return res.status(200).json({
-                    sucess:true,
+                    success:true,
                     meassage:"succcessfully Logged in!",
                     data:{
                         "token":token
@@ -73,14 +73,14 @@ exports.registerCampsite = (req,res) => {
     campsite.save((err,doc) =>{
         if(err){
             return res.status(422).json({
-                sucess:false,
+                success:false,
                 message:"Registration faild,check the validation errors",
                 data:err
             
             });
         }else{
             return res.status(200).json({
-            sucess:true,
+            success:true,
             message:"Successfully Registered"
             
             });
@@ -95,7 +95,7 @@ exports.loginCampsite = (req,res) => {
     Campsite.findOne({business_license_number:req.body.business_license_number},(err,campsite) =>{
         if(!campsite){
             return res.status(404).json({
-                sucess:false,
+                success:false,
                 message:"Campsite's business license number not found!"
             });
         }
@@ -103,7 +103,7 @@ exports.loginCampsite = (req,res) => {
         campsite.comparePassword(req.body.password,(err,isMatch) =>{
             if(!isMatch){
                 return res.status(400).json({
-                    sucess:false,
+                    success:false,
                     message:"Password is incorrect!"
                 });
             }
@@ -111,14 +111,14 @@ exports.loginCampsite = (req,res) => {
             campsite.generateToken((err,token)=>{
                 if (err){
                     return res.status(400).json({
-                        sucess:false,
+                        success:false,
                         message:"unable to generate jwt key",
                         data:err
                     });
                 }
 
                 return res.status(200).json({
-                    sucess:true,
+                    success:true,
                     meassage:"succcessfully Logged in!",
                     data:{
                         "token":token
