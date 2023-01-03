@@ -92,7 +92,7 @@ exports.registerCampsite = (req,res) => {
 //User login
 
 exports.loginCampsite = (req,res) => {
-    Campsite.findOne({business_license_number:req.body.business_license_number},(err,campsite) =>{
+    Campsite.findOne({business_registration_number:req.body.business_registration_number},(err,campsite) =>{
         if(!campsite){
             return res.status(404).json({
                 success:false,
@@ -104,7 +104,7 @@ exports.loginCampsite = (req,res) => {
             if(!isMatch){
                 return res.status(400).json({
                     success:false,
-                    message:"Password is incorrect!"
+                    message:"Password is not correct!"
                 });
             }
 
