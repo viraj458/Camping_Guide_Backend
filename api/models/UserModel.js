@@ -10,7 +10,7 @@ const SALT = 10;
 var schema = mongoose.Schema;
 
 var UserSchema = new schema({
-    name:{
+name:{
     type:String,
     required:[true,'First Name field is required!'],
     maxlength:100

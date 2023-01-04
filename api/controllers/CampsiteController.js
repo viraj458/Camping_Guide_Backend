@@ -1,16 +1,8 @@
 const {Campsite} = require('../models/CampsiteModel.js')
 
-exports.createCampsite = async (req,res)=>{
 
-    const newCampsite = new Campsite(req.body)
-    try {
-        const savedCampsite = await newCampsite.save()
-        return res.status(200).json(savedCampsite)
-    } catch (err) {
-        res.status(500).json(err)
-    }
-}
 
+//UPDATE
 exports.updateCampsite = async (req,res,next)=>{
 
     try {
@@ -20,6 +12,8 @@ exports.updateCampsite = async (req,res,next)=>{
         next(err)
     }
 }
+
+//DELETE
 exports.deleteCampsite = async (req,res,next)=>{
 
     try {
@@ -29,6 +23,8 @@ exports.deleteCampsite = async (req,res,next)=>{
         next(err)
     }
 }
+
+//GET
 exports.getCampsite = async (req,res,next)=>{
 
     try {
@@ -38,6 +34,8 @@ exports.getCampsite = async (req,res,next)=>{
         next(err)
     }
 }
+
+//GET ALL
 exports.getCampsites = async (req,res,next)=>{
 
     try {
