@@ -16,6 +16,13 @@ var UserSchema = new schema({
     maxlength:100
 },
 
+username:{
+    type:String,
+    required:[true,'First Name field is required!'],
+    maxlength:100,
+    unique:true
+},
+
 email:{
     type:String,
     required:[true,'Email field is required!'],
