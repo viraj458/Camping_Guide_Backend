@@ -12,6 +12,7 @@ mongoose.Promise = global.Promise;
 mongoose.set('strictQuery', false);
 
 app.use(cors());
+app.use(express.json())
 
 var port = process.env.PORT || 6000;
 
@@ -23,9 +24,8 @@ mongoose.connect(process.env.DATABASE,{
 });
 
 
-app.use(bodyParser.urlencoded({extended:true}));
-
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended:true}));
+// app.use(bodyParser.json());
 
 var v1 = require('./api/routes');
 const { signedCookie } = require("cookie-parser");

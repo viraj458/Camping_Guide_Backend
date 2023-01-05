@@ -21,7 +21,7 @@ const CampsiteSchema = new Schema({
         required: true,
         unique: true
       },
-      descripton:{
+      description:{
         type: String,
         required: true
       },
