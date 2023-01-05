@@ -3,6 +3,7 @@ const { Campsite } = require("../models/CampsiteModel")
 
 //User Registration
 exports.registerUser = (req,res) => {
+
     const user = new User(req.body);
 
     user.save((err,doc) =>{
@@ -68,6 +69,11 @@ exports.loginUser = (req,res) => {
 
 //Campsite Registration
 exports.registerCampsite = (req,res) => {
+    // console.log('====================================');
+    // console.log(req.body);
+    // console.log('====================================');
+
+    // res.json({})
     const campsite = new Campsite(req.body);
 
     campsite.save((err,doc) =>{
@@ -89,7 +95,7 @@ exports.registerCampsite = (req,res) => {
     });
 } 
 
-//User login
+//Campsite login
 
 exports.loginCampsite = (req,res) => {
     Campsite.findOne({business_registration_number:req.body.business_registration_number},(err,campsite) =>{
