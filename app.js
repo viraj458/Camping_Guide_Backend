@@ -14,7 +14,8 @@ mongoose.Promise = global.Promise;
 mongoose.set('strictQuery', false);
 
 app.use(cors());
-app.use(express.json())
+app.use(express.json({limit:'50mb'}))
+
 // app.use(fileUpload());
 
 var port = process.env.PORT || 6000;
@@ -25,6 +26,17 @@ mongoose.connect(process.env.DATABASE,{
     //useCreateIndex:true
    
 });
+
+
+
+
+// Increase the maximum request size limit to 100MB
+// app.use(bodyParser.json({limit: '100mb'}));
+// app.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
+
+// Your routes go here
+
+
 
 
 // app.use(bodyParser.urlencoded({extended:true}));
