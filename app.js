@@ -3,6 +3,8 @@ var app = express();
 const cors = require('cors');
 require("dotenv").config();
 const bodyParser = require("body-parser");
+// const fileUpload = require('express-fileupload');
+// const path = require('path');
 const mongoose = require("mongoose");
 
 
@@ -13,6 +15,7 @@ mongoose.set('strictQuery', false);
 
 app.use(cors());
 app.use(express.json())
+// app.use(fileUpload());
 
 var port = process.env.PORT || 6000;
 

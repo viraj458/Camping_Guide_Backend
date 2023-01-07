@@ -13,6 +13,12 @@ event_name:{
     required:[true,'Event Name field is required!'],
     
 },
+email:{
+    type:String,
+    required:[true,'email field is required'],
+    unique:true
+
+},
 event_location:{
     type:String,
     required:[true,'location field is required!'],
@@ -35,25 +41,26 @@ ending_time:{
     type:String,
     required:false
 },
+event_category:{
+    type:String,
+    required:[true,'Description field is required']
+
+},
 description:{
     type:String,
     required:[true,'Description field is required']
 
 },
+addphoto:{
+    
+    type:String,
+    required:false,
+},
+
 role:{
     type:String,
     enum:UserRole,
     default:UserRole.CAMPER
-},
-profile_image:{
-    type:String,
-    required:false
-    
-},
-Phone_number:{
-    type:String,
-    required:false
-
 },
 
 
