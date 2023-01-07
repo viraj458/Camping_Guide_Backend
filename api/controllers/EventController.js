@@ -1,64 +1,34 @@
 const {Event}= require("../models/EventModel")
-//const multer = require('multer');
-//const express =require("express");
-//const app = express();
-
-//const fs = require("fs");
 
 //CREATE
 
-exports.registerEvent = async (req,res) => {
-   
-    
-
-    // const Storage =multer.diskStorage({
-    //     destination:function(req,file,cb){
-    //         cb(null,'uploads')
-    //     },
-    //     filename:(req, file, cb) => {
-            
-    //         cb(null,file.originalname);
-    //     },
-      
-    // })
-    // const upload = multer({storage:Storage});
-
-    // app.post("/event",upload.single("addphoto"),(req,res) =>{
+exports.registerEvent =  (req,res) => {
     const eventcreate = new Event(req.body)
-//         event_name:req.body.event_name,
-//         email:req.body.email,
-//         event_location:req.body.event_location,
-//         starting_date:req.body.starting_date,
-//         starting_time:req.body.starting_time,
-//         ending_date:req.body.ending_date,
-//         ending_time:req.body.ending_time,
-//         event_category:req.body.event_category,
-//         description:req.body.description,
-//         addphoto:{
-//             data: fs.readFileSync("uploads/"+ req.file.filename),
-//             contentType: "image/png"
-//         },
-//         role:req.body.role
-//     })
 
-//    eventcreate
-//    .save()
-//    .then((res)=>{
-//     console.log("event registered");
-// })
-// .catch((err) => {
-//   console.log(err, "error has occur");
-// });
-// res.send('event registered')
-//     })
+    //   try {
+    //     const savedevent = await eventcreate.save()
+    //     return res.status(200).json(savedevent)
+    // } catch (error) {
+    //     res.status(500).json(error)
+    // }
 
-// };
-      try {
-        const savedevent = await eventcreate.save()
-        return res.status(200).json(savedevent)
-    } catch (error) {
-        res.status(500).json(error)
-    }
+    eventcreate.save((err,doc) =>{
+        if(err){
+            return res.status(422).json({
+                sucess:false,
+                message:"Registration faild,check the validation errors",
+                data:err
+            
+            });
+        }else{
+            return res.status(200).json({
+            success:true,
+            message:"Successfully Registered"
+            
+            });
+            
+        }
+    });
 }
 
 //UPDATE

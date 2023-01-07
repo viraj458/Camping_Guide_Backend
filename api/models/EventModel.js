@@ -53,7 +53,7 @@ description:{
 },
 addphoto:{
     
-    type:String,
+    type:[String],
     required:false,
 },
 
