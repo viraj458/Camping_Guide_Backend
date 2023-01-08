@@ -35,7 +35,7 @@ exports.getCampsite = async (req,res) => {
   }
 }
 
-//GET ALL
+//GET ALL SELECTED
 exports.getCampsites = async (req,res,next)=>{
 
     try {
@@ -43,5 +43,17 @@ exports.getCampsites = async (req,res,next)=>{
         return res.status(200).json(campsites)
     } catch (err) {
         next(err)
+    }
+}
+
+//GET ALL CAMPSITES
+exports.getallcampsites = async (req,res) => {
+
+
+    try {
+        const campsites1 = await Campsite.find()
+        return res.status(200).json(campsites1)
+    } catch (error) {
+        res.status(500).json(error)
     }
 }

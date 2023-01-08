@@ -21,8 +21,10 @@ app.put('/campsite/:id', CampsiteController.updateCampsite)
 app.delete('/campsite/:id', CampsiteController.deleteCampsite)
 //GET
 app.get('/campsite/find/:id', CampsiteController.getCampsite)
-//GET ALL
+//GET ALL SELECTED
 app.get('/campsites', CampsiteController.getCampsites)
+//GET ALL CAMPSITES
+app.get('/allcampsites', CampsiteController.getallcampsites)
 
 }
 
