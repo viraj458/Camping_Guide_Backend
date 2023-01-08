@@ -23,5 +23,14 @@ const EventController = require("../controllers/EventController");
     // get all events countbycategory
     app.get("/events/countByCategory", EventController.countByCategory);
 
+    //get events by category 
+
+    app.get("/events/eventbybeach",EventController.beachCategory);
+    app.get("/events/eventbyadventure",EventController.adventureCategory);
+    app.get("/events/eventbyjungle",EventController.jungleCategory);
+    app.get("/events/eventbyluxury",EventController.luxuryCategory);
+    app.get("/events/eventbyriver",EventController.riverCategory);
+    app.get("/events/eventbybirdwatching",EventController.birdwatchingCategory);
+
 
 }

@@ -96,8 +96,81 @@ exports.countByCategory = async (req,res) => {
     }
 }
 
+
+
+//get events by category
+//beach
           
-           
+exports.beachCategory = async (req,res) => {
+
+
+    try {
+        const eventbeach = await Event.find({event_category:"Beach"})
+        return res.status(200).json(eventbeach)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+} 
+
+//adventure
+exports.adventureCategory = async (req,res) => {
+
+
+    try {
+        const eventadventure = await Event.find({event_category:"Adventure"})
+        return res.status(200).json(eventadventure)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+} 
+
+//jungle
+exports.jungleCategory = async (req,res) => {
+
+
+    try {
+        const eventjungle = await Event.find({event_category:"Jungle"})
+        return res.status(200).json(eventjungle)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+} 
+
+//luxury
+exports.luxuryCategory = async (req,res) => {
+
+
+    try {
+        const eventluxury = await Event.find({event_category:"Luxury"})
+        return res.status(200).json(eventluxury)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+} 
+
+//river
+exports.riverCategory = async (req,res) => {
+
+
+    try {
+        const eventriver= await Event.find({event_category:"River"})
+        return res.status(200).json(eventriver)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+} 
+
+//birdwatching
+exports.birdwatchingCategory = async (req,res) => {
+
+
+    try {
+        const eventbirdwatching = await Event.find({event_category:"Birdwatching"})
+        return res.status(200).json(eventbirdwatching)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+} 
             
         
  
