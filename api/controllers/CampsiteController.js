@@ -39,7 +39,7 @@ exports.getCampsite = async (req,res,next)=>{
 exports.getCampsites = async (req,res,next)=>{
 
     try {
-        const campsites = await Campsite.find()
+        const campsites = await Campsite.find(req.query).limit(4)
         return res.status(200).json(campsites)
     } catch (err) {
         next(err)
