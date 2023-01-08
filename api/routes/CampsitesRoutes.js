@@ -26,6 +26,11 @@ app.get('/campsites', CampsiteController.getCampsites)
 //GET ALL CAMPSITES
 app.get('/allcampsites', CampsiteController.getallcampsites)
 
+
+app.get('/allcampsites', CampsiteController.getallcampsites)
+
+
+
 }
 
 
