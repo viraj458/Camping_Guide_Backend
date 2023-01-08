@@ -79,6 +79,22 @@ exports.Events = async (req,res) => {
     }
 }
 
+//get all countby category
+
+exports.countByCategory = async (req,res) => {
+    const category = req.query.category.split(",");
+
+    try {
+        const listevent = await Promise.all(
+            category.map((event_category) =>{
+                return Event.countDocuments({event_category:event_category});
+            })
+        );
+        res.status(200).json(listevent)
+    } catch (err) {
+        next(err);
+    }
+}
 
           
            
