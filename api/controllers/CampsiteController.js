@@ -24,22 +24,22 @@ exports.deleteCampsite = async (req,res,next)=>{
     }
 }
 
-//GET
-exports.getCampsite = async (req,res,next)=>{
+exports.getCampsite = async (req,res) => {
 
-    try {
-        const campsite = await Campsite.findById(req.params.id)
-        return res.status(200).json(campsite)
-    } catch (err) {
-        next(err)
-    }
+
+  try {
+      const campsite = await Campsite.findById(req.params.id)
+      return res.status(200).json(campsite)
+  } catch (error) {
+      res.status(500).json(error)
+  }
 }
 
 //GET ALL
 exports.getCampsites = async (req,res,next)=>{
 
     try {
-        const campsites = await Campsite.find()
+        const campsites = await Campsite.find(req.query).limit(4)
         return res.status(200).json(campsites)
     } catch (err) {
         next(err)

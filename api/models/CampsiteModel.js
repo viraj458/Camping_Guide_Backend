@@ -41,6 +41,10 @@ const CampsiteSchema = new Schema({
         type: [String],
         required: false
       },
+      featured:{
+        type: Boolean,
+        default: false
+      }
     });
 
 
