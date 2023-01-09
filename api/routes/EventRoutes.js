@@ -32,5 +32,7 @@ const EventController = require("../controllers/EventController");
     app.get("/events/eventbyriver",EventController.riverCategory);
     app.get("/events/eventbybirdwatching",EventController.birdwatchingCategory);
 
+    
+
 
 }
