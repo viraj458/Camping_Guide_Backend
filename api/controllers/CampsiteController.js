@@ -35,7 +35,9 @@ exports.getCampsite = async (req,res) => {
   }
 }
 
-//GET ALL SELECTED
+
+//GET ALL by 
+
 exports.getCampsites = async (req,res,next)=>{
 
     try {
@@ -46,7 +48,9 @@ exports.getCampsites = async (req,res,next)=>{
     }
 }
 
+
 //GET ALL CAMPSITES
+
 exports.getallcampsites = async (req,res) => {
 
 
@@ -57,3 +61,4 @@ exports.getallcampsites = async (req,res) => {
         res.status(500).json(error)
     }
 }
+

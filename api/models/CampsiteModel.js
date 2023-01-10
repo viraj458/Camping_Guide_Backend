@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var bcrypt = require('bcrypt');
 require("dotenv").config();
 const jwt = require('jsonwebtoken');
+const UserRole = require("../enums/UserRole");
 
 const SALT = 10;
 
@@ -44,7 +45,15 @@ const CampsiteSchema = new Schema({
       featured:{
         type: Boolean,
         default: false
-      }
+      },
+
+      role:{
+        type:String,
+        enum:UserRole,
+        default:UserRole.CAMPSITE
+    },
+
+
     });
 
 
