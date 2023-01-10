@@ -79,19 +79,21 @@ const CampsiteSchema = new Schema({
 
 
   //For comparing the campsites entered password with database during login
-CampsiteSchema.methods.comparePassword = function (candidatePassword,callBack){
-  bcrypt.compare(candidatePassword,this.password,function(err,isMatch){
-      if(err) return callBack(err);
-      callBack(null,isMatch);
-  }); 
+// CampsiteSchema.methods.comparePassword = function (candidatePassword,callBack){
+//   bcrypt.compare(candidatePassword,this.password,function(err,isMatch){
+//       if(err) return callBack(err);
+//       callBack(null,isMatch);
+//   }); 
 
-  };
+//   };
+
+
 
 
 //For generating token when loggedin
 CampsiteSchema.methods.generateToken = function(callBack){
-  var campsite =this;
-  var token = jwt.sign(campsite._id.toHexString(),process.env.SECRETE);
+  var campsite = this;
+  var token = jwt.sign({campsite},process.env.SECRETE,{expiresIn:'1h'});
   
   callBack(null,token);
 };
