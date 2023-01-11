@@ -81,7 +81,7 @@ exports.Events = async (req,res) => {
 
 //get all countby category
 
-exports.countByCategory = async (req,res) => {
+exports.countByCategory = async (req,res,next) => {
     const category = req.query.category.split(",");
 
     try {
