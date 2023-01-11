@@ -17,6 +17,10 @@ const CampsiteSchema = new Schema({
         type: String,
         required: true
       },
+      nearest_city:{
+        type: String,
+        required: true
+      },
       business_registration_number:{
         type: String,
         required: true,
@@ -90,14 +94,25 @@ const CampsiteSchema = new Schema({
   }
 
 
-  // For comparing the campsites entered password with database during login
-CampsiteSchema.methods.comparePassword = function (candidatePassword,callBack){
-  bcrypt.compare(candidatePassword,this.password,function(err,isMatch){
-      if(err) return callBack(err);
-      callBack(null,isMatch);
-  }); 
+  CampsiteSchema.statics.login = async function(business_registration_number,password){
+    const campsite = await this.findOne({ business_registration_number });
+    if (campsite) {
+      const auth = await bcrypt.compare(password, campsite.password);
+      if (auth) {
+        return campsite;
+      }
+      throw Error('incorrect password');
+    }
+    throw Error('incorrect business registration number');
+  }
+  //For comparing the campsites entered password with database during login
+// CampsiteSchema.methods.comparePassword = function (candidatePassword,callBack){
+//   bcrypt.compare(candidatePassword,this.password,function(err,isMatch){
+//       if(err) return callBack(err);
+//       callBack(null,isMatch);
+//   }); 
 
-  };
+  // };
 
 
 
