@@ -77,15 +77,27 @@ const CampsiteSchema = new Schema({
       }
   });
 
+  CampsiteSchema.statics.login = async function(business_registration_number,password){
+    const campsite = await this.findOne({ business_registration_number });
+    if (campsite) {
+      const auth1 = await bcrypt.compare(password, campsite.password);
+      if (auth1) {
+        return campsite;
+      }
+      throw Error('incorrect password');
+    }
+    throw Error('incorrect business_registration_number');
+  }
 
-  //For comparing the campsites entered password with database during login
-// CampsiteSchema.methods.comparePassword = function (candidatePassword,callBack){
-//   bcrypt.compare(candidatePassword,this.password,function(err,isMatch){
-//       if(err) return callBack(err);
-//       callBack(null,isMatch);
-//   }); 
 
-//   };
+  // For comparing the campsites entered password with database during login
+CampsiteSchema.methods.comparePassword = function (candidatePassword,callBack){
+  bcrypt.compare(candidatePassword,this.password,function(err,isMatch){
+      if(err) return callBack(err);
+      callBack(null,isMatch);
+  }); 
+
+  };
 
 
 
@@ -93,7 +105,7 @@ const CampsiteSchema = new Schema({
 //For generating token when loggedin
 CampsiteSchema.methods.generateToken = function(callBack){
   var campsite = this;
-  var token = jwt.sign({campsite},process.env.SECRETE,{expiresIn:'1h'});
+  var token = jwt.sign(campsite._id.toHexString(),process.env.SECRETE,);
   
   callBack(null,token);
 };
