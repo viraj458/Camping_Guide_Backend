@@ -11,44 +11,41 @@ var PackageModelSchema = new schema({
     campsiteid: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'CAMPSITE',
-        required: [false, 'Campsitename field is required!'],
+        required: [true, 'Campsiteidfield is required!'],
         unique:true
       },
     
-package1:{
-    type:[String],
-    required:[true,'package1 field is required!'],
+onlycampsite:{
+    type:String,
+    required:false,
     
 },
-package1price:{
+tent:{
     type:String,
-    required:[true,'package1price field is required'],
+    required:false,
     
 
 },
-package2:{
-    type:[String],
+gril:{
+    type:String,
     required:false
     
 },
-package2price:{
+light:{
     type:String,
     required:false
 },
-package3:{
-    type:[String],
+price:{
+    type:String,
     required:false
 },
 
-package3price:{
-    type:String,
-    required:false
-},
 
 
 role:{
     type:String,
     enum:UserRole,
+    default:UserRole.CAMPSITE
    
 },
 

@@ -129,53 +129,36 @@ exports.loginUser = async(req,res) => {
 
 
 //Campsite Registration
-exports.registerCampsite = async (req,res) => {
+exports.registerCampsite = (req,res) => {
     // console.log('====================================');
     // console.log(req.body);
     // console.log('====================================');
 
-    try {
-        let user = await Campsite.create(req.body)
-        
-      
-        user.photos_of_location = null
-        user.photos_of_legal_docs = null
-
-        const token = jwt.sign({user},process.env.SECRETE,{expiresIn:'1h'})
-        res.status(200).json({
-            success:true,
-            meassage:"succcessfully registerd!",
-            data:{
-                "token":token
-            }
-        })
-    } catch (error) {
-        res.status(400).json({error:error.message})
-    }
-
-
-
     // res.json({})
-    // const campsite = new Campsite(req.body);
+    const campsite = new Campsite(req.body);
 
-    // campsite.save((err,doc) =>{
-    //     if(err){
-    //         return res.status(422).json({
-    //             success:false,
-    //             message:"Registration faild,check the validation errors",
-    //             data:err
+    campsite.save((err,doc) =>{
+        if(err){
+            return res.status(422).json({
+                success:false,
+                message:"Registration faild,check the validation errors",
+                data:err
             
-    //         });
-    //     }else{
-    //         return res.status(200).json({
-    //         success:true,
-    //         message:"Successfully Registered"
+            });
+        }else{
+            return res.status(200).json({
+            success:true,
+            message:"Successfully Registered"
             
-    //         });
+            });
             
-    //     }
-    // });
+        }
+    });
 } 
+
+
+
+
 
 //Campsite login
 
