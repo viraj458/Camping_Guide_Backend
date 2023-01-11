@@ -129,69 +129,117 @@ exports.loginUser = async(req,res) => {
 
 
 //Campsite Registration
-exports.registerCampsite = (req,res) => {
+exports.registerCampsite = async (req,res) => {
     // console.log('====================================');
     // console.log(req.body);
     // console.log('====================================');
 
-    // res.json({})
-    const campsite = new Campsite(req.body);
+    try {
+        let user = await Campsite.create(req.body)
+        
+      
+        user.photos_of_location = null
+        user.photos_of_legal_docs = null
 
-    campsite.save((err,doc) =>{
-        if(err){
-            return res.status(422).json({
-                success:false,
-                message:"Registration faild,check the validation errors",
-                data:err
-            
-            });
-        }else{
-            return res.status(200).json({
+        const token = jwt.sign({user},process.env.SECRETE,{expiresIn:'1h'})
+        res.status(200).json({
             success:true,
-            message:"Successfully Registered"
+            meassage:"succcessfully registerd!",
+            data:{
+                "token":token
+            }
+        })
+    } catch (error) {
+        res.status(400).json({error:error.message})
+    }
+
+
+
+    // res.json({})
+    // const campsite = new Campsite(req.body);
+
+    // campsite.save((err,doc) =>{
+    //     if(err){
+    //         return res.status(422).json({
+    //             success:false,
+    //             message:"Registration faild,check the validation errors",
+    //             data:err
             
-            });
+    //         });
+    //     }else{
+    //         return res.status(200).json({
+    //         success:true,
+    //         message:"Successfully Registered"
             
-        }
-    });
+    //         });
+            
+    //     }
+    // });
 } 
 
 //Campsite login
 
-exports.loginCampsite = (req,res) => {
-    Campsite.findOne({business_registration_number:req.body.business_registration_number},(err,campsite) =>{
-        if(!campsite){
-            return res.status(404).json({
-                success:false,
-                message:"Campsite's business license number not found!"
-            });
-        }
+exports.loginCampsite = async(req,res) => {
 
-        campsite.comparePassword(req.body.password,(err,isMatch) =>{
-            if(!isMatch){
-                return res.status(400).json({
-                    success:false,
-                    message:"Password is not correct!"
-                });
+    try {
+        const {business_registration_number,password} = req.body
+        // console.log("*****************************");
+        // console.log(business_registration_number);
+        // console.log(password);
+        // console.log("*****************************");
+        const user = await Campsite.login(business_registration_number,password)
+        // console.log("111111111111111111");
+        // console.log(user);
+        // console.log("111111111111111111111111111111");
+   
+        user.photos_of_location = null
+        user.photos_of_legal_docs = null
+    
+        const token = jwt.sign({user},process.env.SECRETE,{expiresIn:'1h'})
+        res.status(200).json({
+            success:true,
+            meassage:"succcessfully Logged in!",
+            data:{
+                "token":token
             }
+        })
+    } catch (error) {
+        res.status(400).json({error:error.message})
+    }
 
-            campsite.generateToken((err,token)=>{
-                if (err){
-                    return res.status(400).json({
-                        success:false,
-                        message:"unable to generate jwt key",
-                        data:err
-                    });
-                }
+    // Campsite.findOne({business_registration_number:req.body.business_registration_number},(err,campsite) =>{
+    //     if(!campsite){
+    //         return res.status(404).json({
+    //             success:false,
+    //             message:"Campsite's business license number not found!"
+    //         });
+    //     }
 
-                return res.status(200).json({
-                    success:true,
-                    meassage:"succcessfully Logged in!",
-                    data:{
-                        "token":token
-                    }
-                  });
-            });
-        });
-    });
+    //     campsite.comparePassword(req.body.password,(err,isMatch) =>{
+    //         if(!isMatch){
+    //             return res.status(400).json({
+    //                 success:false,
+    //                 message:"Password is not correct!"
+    //             });
+    //         }
+
+    //         campsite.generateToken((err,token)=>{
+    //             if (err){
+    //                 return res.status(400).json({
+    //                     success:false,
+    //                     message:"unable to generate jwt key",
+    //                     data:err
+    //                 });
+    //             }
+
+    //             return res.status(200).json({
+    //                 success:true,
+    //                 meassage:"succcessfully Logged in!",
+    //                 data:{
+    //                     "token":token
+    //                 }
+    //               });
+    //         });
+    //     });
+    // });
 } 
