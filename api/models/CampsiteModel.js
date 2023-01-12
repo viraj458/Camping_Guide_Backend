@@ -81,17 +81,17 @@ const CampsiteSchema = new Schema({
       }
   });
 
-  CampsiteSchema.statics.login = async function(business_registration_number,password){
-    const campsite = await this.findOne({ business_registration_number });
-    if (campsite) {
-      const auth1 = await bcrypt.compare(password, campsite.password);
-      if (auth1) {
-        return campsite;
-      }
-      throw Error('incorrect password');
-    }
-    throw Error('incorrect business_registration_number');
-  }
+  // CampsiteSchema.statics.login = async function(business_registration_number,password){
+  //   const campsite = await this.findOne({ business_registration_number });
+  //   if (campsite) {
+  //     const auth1 = await bcrypt.compare(password, campsite.password);
+  //     if (auth1) {
+  //       return campsite;
+  //     }
+  //     throw Error('incorrect password');
+  //   }
+  //   throw Error('incorrect business_registration_number');
+  // }
 
 
   CampsiteSchema.statics.login = async function(business_registration_number,password){
