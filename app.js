@@ -2,7 +2,6 @@ const express =require("express");
 var app = express();
 const cors = require('cors');
 require("dotenv").config();
-const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 
@@ -15,14 +14,13 @@ app.use(cookieParser());
 app.use(cors({credentials:true}));
 app.use(express.json({limit:'50mb'}))
 
-// app.use(fileUpload());
+
 
 var port = process.env.PORT || 6000;
 
 
 
 var v1 = require('./api/routes');
-const { signedCookie } = require("cookie-parser");
 
 
 app.use('/api/v1', v1.router);
