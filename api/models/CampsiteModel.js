@@ -81,17 +81,6 @@ const CampsiteSchema = new Schema({
       }
   });
 
-  // CampsiteSchema.statics.login = async function(business_registration_number,password){
-  //   const campsite = await this.findOne({ business_registration_number });
-  //   if (campsite) {
-  //     const auth1 = await bcrypt.compare(password, campsite.password);
-  //     if (auth1) {
-  //       return campsite;
-  //     }
-  //     throw Error('incorrect password');
-  //   }
-  //   throw Error('incorrect business_registration_number');
-  // }
 
 
   CampsiteSchema.statics.login = async function(business_registration_number,password){
@@ -105,15 +94,6 @@ const CampsiteSchema = new Schema({
     }
     throw Error('incorrect business registration number');
   }
-  //For comparing the campsites entered password with database during login
-// CampsiteSchema.methods.comparePassword = function (candidatePassword,callBack){
-//   bcrypt.compare(candidatePassword,this.password,function(err,isMatch){
-//       if(err) return callBack(err);
-//       callBack(null,isMatch);
-//   }); 
-
-  // };
-
 
 
 
@@ -124,6 +104,8 @@ CampsiteSchema.methods.generateToken = function(callBack){
   
   callBack(null,token);
 };
+
+
 
 //validating token for auth routes middleware
 CampsiteSchema.statics.findByToken = function(token,callBack){
