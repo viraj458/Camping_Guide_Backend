@@ -16,8 +16,6 @@ require('./PackageRoutes')(router)
 
 
 
-//require('./CustomerRoutes')(router);
-//require('./CampsiteOwnerRoutes')(router);
 
 module.exports.router = router;
 
