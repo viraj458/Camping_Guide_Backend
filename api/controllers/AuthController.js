@@ -183,14 +183,8 @@ exports.loginCampsite = async(req,res) => {
 
     try {
         const {business_registration_number,password} = req.body
-        // console.log("*****************************");
-        // console.log(business_registration_number);
-        // console.log(password);
-        // console.log("*****************************");
         const user = await Campsite.login(business_registration_number,password)
-        // console.log("111111111111111111");
-        // console.log(user);
-        // console.log("111111111111111111111111111111");
+
    
         user.photos_of_location = null
         user.photos_of_legal_docs = null
