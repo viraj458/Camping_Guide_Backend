@@ -5,12 +5,6 @@ const {Event}= require("../models/EventModel")
 exports.registerEvent =  (req,res) => {
     const eventcreate = new Event(req.body)
 
-    //   try {
-    //     const savedevent = await eventcreate.save()
-    //     return res.status(200).json(savedevent)
-    // } catch (error) {
-    //     res.status(500).json(error)
-    // }
 
     eventcreate.save((err,doc) =>{
         if(err){
