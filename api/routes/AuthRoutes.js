@@ -9,7 +9,10 @@ module.exports = function(app){
   //user login
    app.post("/login",AuthController.loginUser);
    
+   //campsite registration
    app.post("/register_campsite",AuthController.registerCampsite);
+
+   //campsite login
    app.post("/login_campsite",AuthController.loginCampsite);
 
 
